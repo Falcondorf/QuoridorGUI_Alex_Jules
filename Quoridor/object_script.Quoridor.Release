@@ -1,0 +1,12 @@
+INPUT(
+./release\mainwindow.o
+./release\mainView.o
+./release\board.o
+./release\Frame.o
+./release\game.o
+./release\player.o
+./release\Side.o
+./release\subject.o
+./release\test.o
+./release\moc_mainwindow.o
+);
