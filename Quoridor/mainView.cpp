@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    int nbCase = 19;
+    int nbCase = 13;
     Game myGame ("name1","name2",nbCase);
     double sizeCase= 1000/(3*nbCase-1);
     int width = (nbCase*2)-1;
@@ -18,21 +18,21 @@ int main(int argc, char *argv[])
     for (int i=0;i<width;i++){
 
         for(int j=0;j<width;j++){
-             QPixmap woodenFrame("C:/Users/Pierre/Pictures/caseBois.jpg");
+             QPixmap woodenFrame("pic/woodenFrame.jpg");
              QLabel *label  = new QLabel();
              label->setPixmap(woodenFrame);
              label->setMaximumSize(QSize(sizeCase,sizeCase));
-             QPixmap wall("C:/Users/Pierre/Pictures/mur.jpg");
+             QPixmap wall("pic/wallFrame.jpg");
              QLabel *label2  = new QLabel();
              label2->setPixmap(wall);
              label2->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
 
-             QPixmap wallH("C:/Users/Pierre/Pictures/mur.jpg");
+             QPixmap wallH("pic/wallFrame.jpg");
              QLabel *label3  = new QLabel();
              label3->setPixmap(wall);
              label3->setMaximumSize(QSize(sizeCase,sizeCase/3));
 
-             QPixmap wallV("C:/Users/Pierre/Pictures/mur.jpg");
+             QPixmap wallV("pic/wallFrame.jpg");
              QLabel *label4  = new QLabel();
              label4->setPixmap(wall);
              label4->setMaximumSize(QSize(sizeCase/3,sizeCase));
