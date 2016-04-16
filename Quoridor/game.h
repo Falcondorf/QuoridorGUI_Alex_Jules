@@ -187,6 +187,7 @@ public:
      * \return Retourne le plateau sous forme d'une chaîne.
      */
     inline std::string stringBoard();
+    inline bool filledPos(unsigned row, unsigned col);
 };
 
 Player &Game::getPlayer(unsigned nb){
@@ -203,6 +204,10 @@ unsigned Game::getCurrentPlayer(){
 
 std::string Game::stringBoard(){
     return board_.toString();
+}
+
+bool Game::filledPos(unsigned row, unsigned col){
+    return !board_.isFree(row, col);
 }
 
 #endif // GAME
