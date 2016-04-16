@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+QT       += widgets
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Quoridor
@@ -21,7 +23,10 @@ SOURCES +=\
     player.cpp \
     Side.cpp \
     subject.cpp \
-    test.cpp
+    test.cpp \
+    titleWindow.cpp \
+    gameWindow.cpp \
+    formulaireWindow.cpp
 
 HEADERS  += mainwindow.h \
     board.h \
@@ -34,7 +39,10 @@ HEADERS  += mainwindow.h \
     Side.h \
     stringConvert.hpp \
     subject.h \
-    Test.h
+    Test.h \
+    titleWindow.h \
+    gameWindow.h \
+    formulaireWindow.h
 
 FORMS    += mainwindow.ui
 CONFIG += console

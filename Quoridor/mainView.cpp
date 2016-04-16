@@ -1,15 +1,22 @@
 #include "mainwindow.h"
 #include "game.h"
+#include "formulaireWindow.h"
 #include <QApplication>
 #include <qgridlayout.h>
 #include <qlabel.h>
 #include <qpainter.h>
+#include <QVBoxLayout>
+#include <QPushButton>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    int nbCase = 5;
+    /*MainWindow w;
+    QWidget *widgetT=new QWidget();
+    QWidget *widget=new QWidget();
+
+    /*--------------Display Grille-------------------*/
+    /*int nbCase = 5;
     Game myGame ("name1","name2",nbCase);
     double sizeCase= 1000/(3*nbCase-1);
     int width = (nbCase*2)-1;
@@ -38,7 +45,7 @@ int main(int argc, char *argv[])
 
              /*----------------------------*/
 
-             QPixmap frameNoPlayer("pic/woodenFrame_Player.jpg");
+           /*  QPixmap frameNoPlayer("pic/woodenFrame_Player.jpg");
              QLabel *labelP = new QLabel();
              labelP->setPixmap(frameNoPlayer);
              labelP->setMaximumSize(sizeCase, sizeCase);
@@ -86,13 +93,29 @@ int main(int argc, char *argv[])
 
         }
     }
-
-
-    QWidget *widget=new QWidget();
     gl->setSizeConstraint(QLayout::SetFixedSize);
     gl->setSpacing(0);
 
-    widget->setLayout(gl);
+    /*--------------Display title--------------------*/
+   /* QVBoxLayout *titleRoot = new QVBoxLayout();
+    QPixmap imgTitle("pic/SampleTitle[placeholder].jpg");
+    imgTitle = imgTitle.scaled(1000,500,Qt::KeepAspectRatio);
+    QLabel *labelTitle = new QLabel();
+    labelTitle->setPixmap(imgTitle);
+    labelTitle->setMaximumSize(500, 250);
+    labelTitle->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    QPushButton *startB = new QPushButton("START", widget);
+    startB->setMaximumSize(100, 50);
+
+    titleRoot->addWidget(labelTitle);
+    titleRoot->setSpacing(100);
+    titleRoot->addWidget(startB);
+
+
+
+
+    widgetT->setLayout(titleRoot);
     //widget->setStyleSheet("background-image: pic/woodBackground.jpg");
 
 
@@ -100,7 +123,12 @@ int main(int argc, char *argv[])
    // w.setCentralWidget(label);
     //w.setCentralWidget(label2);
 
-    widget->show();
+    widgetT->show();
+    if (startB->isFlat()){
+        widget->show();
+    }*/
+    formulaireWindow form(0);
+    form.show();
 
     return a.exec();
 }

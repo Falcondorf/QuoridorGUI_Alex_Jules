@@ -8,5 +8,10 @@ INPUT(
 ./debug\Side.o
 ./debug\subject.o
 ./debug\test.o
+./debug\titleWindow.o
+./debug\gameWindow.o
+./debug\formulaireWindow.o
 ./debug\moc_mainwindow.o
+./debug\moc_gameWindow.o
+./debug\moc_formulaireWindow.o
 );

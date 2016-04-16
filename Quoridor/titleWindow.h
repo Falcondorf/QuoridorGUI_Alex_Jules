@@ -1,0 +1,4 @@
+#ifndef TITLEWINDOW_H
+#define TITLEWINDOW_H
+
+#endif // TITLEWINDOW_H

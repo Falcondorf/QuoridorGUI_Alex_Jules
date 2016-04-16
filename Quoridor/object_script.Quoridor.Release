@@ -8,5 +8,10 @@ INPUT(
 ./release\Side.o
 ./release\subject.o
 ./release\test.o
+./release\titleWindow.o
+./release\gameWindow.o
+./release\formulaireWindow.o
 ./release\moc_mainwindow.o
+./release\moc_gameWindow.o
+./release\moc_formulaireWindow.o
 );
