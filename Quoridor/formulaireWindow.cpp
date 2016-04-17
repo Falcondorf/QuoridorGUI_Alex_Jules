@@ -1,6 +1,7 @@
 #include "formulaireWindow.h"
 
 formulaireWindow::formulaireWindow(QWidget *parent) :QWidget(parent){
+    superRoot_ = new QVBoxLayout(this);
     root_ = new QHBoxLayout(this);
     groupParam_ = new QVBoxLayout(this);
     sbNbJ_ = new QSpinBox(this);
@@ -47,4 +48,9 @@ formulaireWindow::formulaireWindow(QWidget *parent) :QWidget(parent){
     root_->addLayout(groupParam_);
     root_->addLayout(vb2J);
     root_->addWidget(fourPlayerGameBox_);
+    startB_ = new QPushButton(tr("START"));
+    startB_->setMaximumSize(100, 50);
+    superRoot_->addLayout(root_);
+    superRoot_->addWidget(startB_);
+
 }

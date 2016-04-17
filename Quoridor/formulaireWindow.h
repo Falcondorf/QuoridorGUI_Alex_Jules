@@ -20,6 +20,7 @@ signals:
 public slots:
 
 private:
+     QVBoxLayout *superRoot_;
     QHBoxLayout *root_;
     QVBoxLayout *groupParam_;
     QSpinBox *sbNbJ_;
@@ -35,6 +36,8 @@ private:
     QLineEdit *leName4_;
     QLabel *lName4_;
     QGroupBox *fourPlayerGameBox_;
+    QPushButton *startB_;
+
 
 };
 
