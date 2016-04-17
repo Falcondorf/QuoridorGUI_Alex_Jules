@@ -128,8 +128,6 @@ int main(int argc, char *argv[])
     if (startB->isFlat()){
         widget->show();
     }*/
-
-    formulaireWindow form(0);
     titleWindow title(0);
     title.show();
 

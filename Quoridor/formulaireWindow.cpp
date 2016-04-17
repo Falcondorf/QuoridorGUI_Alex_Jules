@@ -36,6 +36,7 @@ formulaireWindow::formulaireWindow(QWidget *parent) :QWidget(parent){
     vb4J->addWidget(leName4_);
 
     fourPlayerGameBox_->setLayout(vb4J);
+    fourPlayerGameBox_->hide();
 
     groupParam_->addWidget(lNbJ_);
     groupParam_->addWidget(sbNbJ_);
@@ -51,6 +52,7 @@ formulaireWindow::formulaireWindow(QWidget *parent) :QWidget(parent){
     superRoot_->addWidget(startB_);
 
     QObject::connect(startB_, SIGNAL(clicked()),this, SLOT(startGame()));
+    QObject::connect(sbNbJ_, SIGNAL(valueChanged(int)),this, SLOT(fourPlayerGame()));
 }
 
 void formulaireWindow::startGame(){
@@ -61,11 +63,17 @@ void formulaireWindow::startGame(){
                             leName3_->text().toStdString(),leName4_->text().toStdString(),
                             sbSize_->value());
     }
-    theGameWindow_ = new gameWindow(theGame_,this);
+    theGameWindow_ = new gameWindow(theGame_);
     theGameWindow_->show();
-    //this->close();
+    this->close();
 
 }
 
-
+void formulaireWindow::fourPlayerGame(){
+    if (sbNbJ_->value()!=4){
+        fourPlayerGameBox_->hide();
+    } else {
+        fourPlayerGameBox_->show();
+    }
+}
 

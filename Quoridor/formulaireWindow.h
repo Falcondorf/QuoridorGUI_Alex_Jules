@@ -21,6 +21,7 @@ signals:
 
 public slots:
     void startGame();
+    void fourPlayerGame();
 private:
     gameWindow *theGameWindow_;
     Game *theGame_;
