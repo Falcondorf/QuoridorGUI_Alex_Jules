@@ -5,8 +5,9 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
 
 
     root_ = new QHBoxLayout(this);
-    boardGUI_ = new QGridLayout(this);
-    listInfo_ = new QVBoxLayout(this);
+    boardGUI_ = new QGridLayout();
+    listInfo_ = new QVBoxLayout();
+    gblistInfo_ = new QGroupBox();
 
     double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
     int width = (gameGUI_->getSizeGame()*2)-1;
@@ -15,8 +16,14 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     woodenFrame = woodenFrame.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
     QPixmap wall("pic/wallFrame.jpg");
     wall = wall.scaled(200,200,Qt::KeepAspectRatio);
-    QPixmap frameNoPlayer("pic/woodenFrame_Player.jpg");
-    frameNoPlayer = frameNoPlayer.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
+    QPixmap framePlayer("pic/woodenFrame_Player[1].jpg");
+    framePlayer = framePlayer.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
+    QPixmap framePlayer2("pic/woodenFrame_Player[2].jpg");
+    framePlayer2 = framePlayer2.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
+    QPixmap framePlayer3("pic/woodenFrame_Player[3].jpg");
+    framePlayer3 = framePlayer3.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
+    QPixmap framePlayer4("pic/woodenFrame_Player[4].jpg");
+    framePlayer4 = framePlayer4.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
     QPixmap wallE("pic/woodBackground.jpg");
     wallE = wallE.scaled(200,200,Qt::KeepAspectRatio);
 
@@ -24,10 +31,26 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
         for(int j=0;j<width;j++){
 
             /*-------------label rempli ---------------*/
-             QLabel *label  = new QLabel();
-             label->setPixmap(woodenFrame);
-             label->setMaximumSize(QSize(sizeCase,sizeCase));
-             label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+             QLabel *labelP1  = new QLabel();
+             labelP1->setPixmap(framePlayer);
+             labelP1->setMaximumSize(QSize(sizeCase,sizeCase));
+             labelP1->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+             QLabel *labelP2  = new QLabel();
+             labelP2->setPixmap(framePlayer2);
+             labelP2->setMaximumSize(QSize(sizeCase,sizeCase));
+             labelP2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+             QLabel *labelP3  = new QLabel();
+             labelP3->setPixmap(framePlayer3);
+             labelP3->setMaximumSize(QSize(sizeCase,sizeCase));
+             labelP3->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+             QLabel *labelP4  = new QLabel();
+             labelP4->setPixmap(framePlayer4);
+             labelP4->setMaximumSize(QSize(sizeCase,sizeCase));
+             labelP4->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
              QLabel *label2  = new QLabel();
              label2->setPixmap(wall);
@@ -44,7 +67,7 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
              /*-------------label vide ---------------*/
 
              QLabel *labelP = new QLabel();
-             labelP->setPixmap(frameNoPlayer);
+             labelP->setPixmap(woodenFrame);
              labelP->setMaximumSize(sizeCase, sizeCase);
              labelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
@@ -62,7 +85,20 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
 
             if (gameGUI_->filledPos(i,j)){
                  if(i%2==0 && j%2==0){
-                     boardGUI_->addWidget(labelP,i,j);
+                     switch (gameGUI_->getNum(i,j)){
+                     case 1:
+                            boardGUI_->addWidget(labelP1,i,j);
+                         break;
+                     case 2:
+                            boardGUI_->addWidget(labelP2,i,j);
+                         break;
+                     case 3:
+                            boardGUI_->addWidget(labelP3,i,j);
+                         break;
+                     case 4:
+                            boardGUI_->addWidget(labelP4,i,j);
+                         break;
+                     }
                  }
                  if(i%2!=0 && j%2!=0){
                      boardGUI_->addWidget(label2,i,j);
@@ -75,7 +111,7 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
                  }
             }else{
                 if(i%2==0 && j%2==0){
-                    boardGUI_->addWidget(label,i,j);
+                    boardGUI_->addWidget(labelP,i,j);
                 }
                 if(i%2!=0 && j%2!=0){
                     boardGUI_->addWidget(label5,i,j);
@@ -98,7 +134,7 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
                        gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getName()));
     nameP->setAlignment(Qt::AlignHCenter);
     nbWall = new QLabel();
-    nbWall->setText("number of the player : "+QString::number(
+    nbWall->setText("number of walls : "+QString::number(
                         gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getWallstock()));
     nbWall->setAlignment(Qt::AlignHCenter);
     sideObj = new QLabel();
@@ -109,11 +145,15 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     listInfo_->addWidget(nbWall);
     listInfo_->addWidget(sideObj);
 
+    gblistInfo_->setTitle("Current player infos");
+    gblistInfo_->setLayout(listInfo_);
+    gblistInfo_->setMaximumHeight(200);
+
     root_->setSizeConstraint(QLayout::SetFixedSize);
     root_->setSpacing(0);
     root_->addLayout(boardGUI_);
     root_->addSpacing(10);
-    root_->addLayout(listInfo_);
+    root_->addWidget(gblistInfo_);
 
 }
 

@@ -318,3 +318,12 @@ bool Game::isOver(){
          }
     return false;
 }
+
+unsigned Game::getNum(unsigned row, unsigned col){
+    for (Player p: listPlayer_){
+        if (p.getPos().first==row && p.getPos().second==col){
+            return p.getNum();
+        }
+    }
+    return -1;
+}

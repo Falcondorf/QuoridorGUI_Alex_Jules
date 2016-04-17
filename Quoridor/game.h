@@ -190,7 +190,7 @@ public:
     inline std::string stringBoard();
     inline bool filledPos(unsigned row, unsigned col);
     inline unsigned getSizeGame();
-
+    unsigned getNum(unsigned row, unsigned col);
 };
 
 Player &Game::getPlayer(unsigned nb){

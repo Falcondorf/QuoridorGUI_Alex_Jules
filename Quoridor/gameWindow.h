@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QGroupBox>
 
 class gameWindow : public QWidget
 {
@@ -25,6 +26,7 @@ private:
     QLabel *nameP;
     QLabel *nbWall;
     QLabel *sideObj;
+    QGroupBox *gblistInfo_;
 };
 
 #endif // GAMEWINDOW_H

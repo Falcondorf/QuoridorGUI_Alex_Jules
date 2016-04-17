@@ -63,6 +63,7 @@ void formulaireWindow::startGame(){
                             leName3_->text().toStdString(),leName4_->text().toStdString(),
                             sbSize_->value());
     }
+
     theGameWindow_ = new gameWindow(theGame_);
     theGameWindow_->show();
     this->close();
