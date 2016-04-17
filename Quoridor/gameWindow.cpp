@@ -94,15 +94,15 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     //QString::fromStdString(str)
 
     nameP = new QLabel();
-    nameP->setText(QString::fromStdString(
+    nameP->setText("name of the player : "+QString::fromStdString(
                        gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getName()));
     nameP->setAlignment(Qt::AlignHCenter);
     nbWall = new QLabel();
-    nbWall->setText(QString::number(
+    nbWall->setText("number of the player : "+QString::number(
                         gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getWallstock()));
     nbWall->setAlignment(Qt::AlignHCenter);
     sideObj = new QLabel();
-    sideObj->setText(QString::fromStdString
+    sideObj->setText("Goal to reach : "+QString::fromStdString
                      (toString(gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getObjective())));
     sideObj->setAlignment(Qt::AlignHCenter);
     listInfo_->addWidget(nameP);
