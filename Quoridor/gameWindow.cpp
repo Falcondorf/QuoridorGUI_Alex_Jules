@@ -1,14 +1,7 @@
 #include "gameWindow.h"
-#include <iostream>
-using namespace std;
-gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(myGame){
 
-
-    root_ = new QHBoxLayout(this);
-    boardGUI_ = new QGridLayout();
-    listInfo_ = new QVBoxLayout();
-    gblistInfo_ = new QGroupBox();
-
+void gameWindow::displayGrid()
+{
     double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
     int width = (gameGUI_->getSizeGame()*2)-1;
 
@@ -126,18 +119,19 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
 
         }
     }
-    /*-------------Infos du joueurs(liste infos)-------------------*/
-    //QString::fromStdString(str)
+}
 
-    nameP = new QLabel();
+void gameWindow::displayInfos()
+{
+
     nameP->setText("name of the player : "+QString::fromStdString(
                        gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getName()));
     nameP->setAlignment(Qt::AlignHCenter);
-    nbWall = new QLabel();
+
     nbWall->setText("number of walls : "+QString::number(
                         gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getWallstock()));
     nbWall->setAlignment(Qt::AlignHCenter);
-    sideObj = new QLabel();
+
     sideObj->setText("Goal to reach : "+QString::fromStdString
                      (toString(gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getObjective())));
     sideObj->setAlignment(Qt::AlignHCenter);
@@ -147,14 +141,157 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
 
     gblistInfo_->setTitle("Current player infos");
     gblistInfo_->setLayout(listInfo_);
-    gblistInfo_->setMaximumHeight(200);
+    //gblistInfo_->setMaximumHeight(200);
 
+}
+
+void gameWindow::displayMoves()
+{
+    btN->setDisabled(true);
+    btS->setDisabled(true);
+    btW->setDisabled(true);
+    btE->setDisabled(true);
+    btNW->setDisabled(true);
+    btNE->setDisabled(true);
+    btSW->setDisabled(true);
+    btSE->setDisabled(true);
+
+    glRose->addWidget(btN,0,1);
+    glRose->addWidget(btS,2,1);
+    glRose->addWidget(btW,1,0);
+    glRose->addWidget(btE,1,2);
+    glRose->addWidget(btNE,0,2);
+    glRose->addWidget(btNW,0,0);
+    glRose->addWidget(btSW,2,0);
+    glRose->addWidget(btSE,2,2);
+    moveOpt->setTitle("Move");
+    moveOpt->setLayout(glRose);
+    //moveOpt->setMaximumHeight(200);
+
+    for(Side s : gameGUI_->possiblePositions()){
+        switch(s){
+        case Side::North:
+            btN->setEnabled(true);
+            break;
+        case Side::South:
+            btS->setEnabled(true);
+            break;
+        case Side::West:
+            btW->setEnabled(true);
+            break;
+        case Side::East:
+            btE->setEnabled(true);
+            break;
+        case Side::NorthWest:
+            btNW->setEnabled(true);
+            break;
+        case Side::NorthEast:
+            btNE->setEnabled(true);
+            break;
+        case Side::SouthWest:
+            btSW->setEnabled(true);
+            break;
+        case Side::SouthEast:
+            btSE->setEnabled(true);
+            break;
+        }
+    }
+}
+
+gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(myGame){
+    root_ = new QHBoxLayout(this);
+    nameP = new QLabel();
+    nbWall = new QLabel();
+    sideObj = new QLabel();
+    boardGUI_ = new QGridLayout;
+    listInfo_ = new QVBoxLayout;
+    gblistInfo_ = new QGroupBox;
+    sbRow = new QSpinBox;
+    lRow = new QLabel("Row");
+    sbCol = new QSpinBox;
+    lCol = new QLabel("Column");
+    wallPannel = new QGridLayout;
+    wallOpt = new QGroupBox;
+    btN = new QPushButton("North");
+
+    btS = new QPushButton("South");
+
+    btW = new QPushButton("West");
+
+    btE = new QPushButton("East");
+
+    btNW= new QPushButton("NorthWest");
+
+    btNE= new QPushButton("NorthEast");
+
+    btSW= new QPushButton("SouthWest");
+
+    btSE= new QPushButton("SouthEast");
+
+    glRose = new QGridLayout;
+    moveOpt= new QGroupBox;
+    rightPannel = new QVBoxLayout;
+
+    /*-------------Affichage de la grille--------------------------*/
+
+    displayGrid();
+
+    /*-------------Infos du joueurs(liste infos)-------------------*/
+
+    displayInfos();
+
+    /*-------------Mouvement de joueur-----------------------------*/
+
+    displayMoves();
+
+    /*-------------Placement de mur--------------------------------*/
+    //wallPannel->setHorizontalSpacing(0);
+    sbRow->setMaximum(gameGUI_->getSizeGame());
+    sbRow->setMinimum(0);
+    sbCol->setMaximum(gameGUI_->getSizeGame());
+    sbCol->setMinimum(0);
+    wallPannel->addWidget(lRow, 0, 0);
+    wallPannel->addWidget(lCol, 0, 1);
+    wallPannel->addWidget(sbRow, 1, 0);
+    wallPannel->addWidget(sbCol, 1, 1);
+    wallOpt->setTitle("Place Wall");
+    wallOpt->setLayout(wallPannel);
+
+    rightPannel->addWidget(gblistInfo_);
+    rightPannel->addWidget(moveOpt);
+    rightPannel->addWidget(wallOpt);
     root_->setSizeConstraint(QLayout::SetFixedSize);
     root_->setSpacing(0);
     root_->addLayout(boardGUI_);
     root_->addSpacing(10);
-    root_->addWidget(gblistInfo_);
+    root_->addLayout(rightPannel);
 
+    QObject::connect(btN, SIGNAL(clicked()), this, SLOT(movementN()));
+    QObject::connect(btS, SIGNAL(clicked()), this, SLOT(movementS()));
 }
 
+void gameWindow::movementN(){
 
+    gameGUI_->move(Side::North);
+
+    displayGrid();
+
+    displayInfos();
+
+    displayMoves();
+
+    this->show();
+}
+
+void gameWindow::movementS(){
+
+    gameGUI_->move(Side::South);
+
+    displayGrid();
+
+    displayInfos();
+
+    displayMoves();
+
+    this->show();
+}

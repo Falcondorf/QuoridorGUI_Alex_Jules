@@ -7,6 +7,8 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QGroupBox>
+#include <QSpinBox>
+#include <QPushButton>
 
 class gameWindow : public QWidget
 {
@@ -17,7 +19,8 @@ public:
 signals:
 
 public slots:
-
+    void movementN();
+    void movementS();
 private:
     Game *gameGUI_;
     QGridLayout *boardGUI_;
@@ -27,6 +30,27 @@ private:
     QLabel *nbWall;
     QLabel *sideObj;
     QGroupBox *gblistInfo_;
+    QLabel *lRow;
+    QSpinBox *sbRow;
+    QLabel *lCol;
+    QSpinBox *sbCol;
+    QGridLayout *wallPannel;
+    QGroupBox *wallOpt;
+    QPushButton *btN;
+    QPushButton *btS;
+    QPushButton *btW;
+    QPushButton *btE;
+    QPushButton *btNW;
+    QPushButton *btNE;
+    QPushButton *btSW;
+    QPushButton *btSE;
+    QGridLayout *glRose;
+    QGroupBox *moveOpt;
+    QVBoxLayout *rightPannel;
+
+    void displayGrid();
+    void displayInfos();
+    void displayMoves();
 };
 
 #endif // GAMEWINDOW_H
