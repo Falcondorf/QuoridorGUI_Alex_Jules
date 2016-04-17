@@ -1,5 +1,6 @@
 #include "formulaireWindow.h"
 
+
 formulaireWindow::formulaireWindow(QWidget *parent) :QWidget(parent){
     superRoot_ = new QVBoxLayout(this);
     root_ = new QHBoxLayout(this);
@@ -16,6 +17,7 @@ formulaireWindow::formulaireWindow(QWidget *parent) :QWidget(parent){
     lNbJ_->setText("Nb joueurs");
     sbNbJ_->setRange(2,4);
     sbNbJ_->setSingleStep(2);
+
 
     lSize_->setText("Taille de plateau");
     sbSize_->setRange(5,19);
@@ -48,4 +50,22 @@ formulaireWindow::formulaireWindow(QWidget *parent) :QWidget(parent){
     superRoot_->addLayout(root_);
     superRoot_->addWidget(startB_);
 
+    QObject::connect(startB_, SIGNAL(clicked()),this, SLOT(startGame()));
 }
+
+void formulaireWindow::startGame(){
+    if(sbNbJ_->value()==2){
+        theGame_ = new Game(leName1_->text().toStdString(),leName2_->text().toStdString(),sbSize_->value());
+    }else{
+         theGame_ = new Game(leName1_->text().toStdString(),leName2_->text().toStdString(),
+                            leName3_->text().toStdString(),leName4_->text().toStdString(),
+                            sbSize_->value());
+    }
+    theGameWindow_ = new gameWindow(theGame_,this);
+    theGameWindow_->show();
+    //this->close();
+
+}
+
+
+

@@ -19,5 +19,6 @@ titleWindow::titleWindow(QWidget *parent) :QWidget(parent){
 void titleWindow::startForm(){
     formW= new formulaireWindow();
     formW->show();
+    this->close();
 
 }

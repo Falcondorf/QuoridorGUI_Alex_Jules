@@ -182,12 +182,15 @@ public:
      * \return Retourne Vrai si le déplacement s'est bien effectué.
      */
     bool move(Side dir);
+
     /*!
      * \brief Méthode permettant l'affichage du plateau de jeu via la partie actuelle.
      * \return Retourne le plateau sous forme d'une chaîne.
      */
     inline std::string stringBoard();
     inline bool filledPos(unsigned row, unsigned col);
+    inline unsigned getSizeGame();
+
 };
 
 Player &Game::getPlayer(unsigned nb){
@@ -208,6 +211,10 @@ std::string Game::stringBoard(){
 
 bool Game::filledPos(unsigned row, unsigned col){
     return !board_.isFree(row, col);
+}
+
+unsigned Game::getSizeGame(){
+    return board_.getLen();
 }
 
 #endif // GAME

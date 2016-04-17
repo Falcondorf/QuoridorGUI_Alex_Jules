@@ -9,6 +9,8 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QGroupBox>
+#include "game.h"
+#include "gameWindow.h"
 
 class formulaireWindow : public QWidget
 {
@@ -18,9 +20,11 @@ public:
 signals:
 
 public slots:
-
+    void startGame();
 private:
-     QVBoxLayout *superRoot_;
+    gameWindow *theGameWindow_;
+    Game *theGame_;
+    QVBoxLayout *superRoot_;
     QHBoxLayout *root_;
     QVBoxLayout *groupParam_;
     QSpinBox *sbNbJ_;

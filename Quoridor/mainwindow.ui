@@ -60,7 +60,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="lineEdit">
+           <property name="text">
+            <string>de</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -165,13 +169,6 @@
      </item>
     </layout>
    </widget>
-   <zorder>pushButton</zorder>
-   <zorder>horizontalSpacer</zorder>
-   <zorder>horizontalSpacer_2</zorder>
-   <zorder>horizontalLayoutWidget_2</zorder>
-   <zorder>lineEdit</zorder>
-   <zorder>horizontalLayoutWidget_3</zorder>
-   <zorder>horizontalLayoutWidget_4</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

@@ -161,8 +161,6 @@ public:
         horizontalLayout_3->addWidget(groupBox);
 
         MainWindow->setCentralWidget(centralWidget);
-        lineEdit->raise();
-        horizontalLayoutWidget_4->raise();
 
         retranslateUi(MainWindow);
 
@@ -174,6 +172,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Menu de lancement", 0));
         label->setText(QApplication::translate("MainWindow", "nb Joueurs", 0));
         label_3->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        lineEdit->setText(QApplication::translate("MainWindow", "de", 0));
         label_2->setText(QApplication::translate("MainWindow", "taille tab", 0));
         label_4->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "GroupBox", 0));
