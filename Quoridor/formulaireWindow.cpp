@@ -9,15 +9,10 @@ formulaireWindow::formulaireWindow(QWidget *parent) :QWidget(parent){
     sbSize_ = new QSpinBox(this);
     lSize_ = new QLabel(this);
     leName1_ = new QLineEdit(this);
-    //lName1_ = new QLabel();
     leName2_ = new QLineEdit(this);
-    //lName2_ = new QLabel();
     leName3_ = new QLineEdit(this);
-    //lName3_ = new QLabel();
     leName4_ = new QLineEdit(this);
-    //lName4_ = new QLabel();
     fourPlayerGameBox_ = new QGroupBox(tr("Jeux à 4"));
-
     lNbJ_->setText("Nb joueurs");
     sbNbJ_->setRange(2,4);
     sbNbJ_->setSingleStep(2);

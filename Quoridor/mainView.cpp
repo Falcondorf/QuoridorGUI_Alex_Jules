@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "game.h"
 #include "formulaireWindow.h"
+#include "titleWindow.h"
 #include <QApplication>
 #include <qgridlayout.h>
 #include <qlabel.h>
@@ -127,8 +128,10 @@ int main(int argc, char *argv[])
     if (startB->isFlat()){
         widget->show();
     }*/
+
     formulaireWindow form(0);
-    form.show();
+    titleWindow title(0);
+    title.show();
 
     return a.exec();
 }
