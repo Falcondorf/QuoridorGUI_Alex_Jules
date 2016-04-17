@@ -12,9 +12,13 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     int width = (gameGUI_->getSizeGame()*2)-1;
 
     QPixmap woodenFrame("pic/woodenFrame.jpg");
+    woodenFrame = woodenFrame.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
     QPixmap wall("pic/wallFrame.jpg");
+    wall = wall.scaled(200,200,Qt::KeepAspectRatio);
     QPixmap frameNoPlayer("pic/woodenFrame_Player.jpg");
+    frameNoPlayer = frameNoPlayer.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
     QPixmap wallE("pic/woodBackground.jpg");
+    wallE = wallE.scaled(200,200,Qt::KeepAspectRatio);
 
     for (int i=0;i<width;i++){
         for(int j=0;j<width;j++){
@@ -23,6 +27,7 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
              QLabel *label  = new QLabel();
              label->setPixmap(woodenFrame);
              label->setMaximumSize(QSize(sizeCase,sizeCase));
+             label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
              QLabel *label2  = new QLabel();
              label2->setPixmap(wall);
@@ -41,7 +46,7 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
              QLabel *labelP = new QLabel();
              labelP->setPixmap(frameNoPlayer);
              labelP->setMaximumSize(sizeCase, sizeCase);
-
+             labelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
              QLabel *label5  = new QLabel();
              label5->setPixmap(wallE);
@@ -85,9 +90,29 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
 
         }
     }
-    boardGUI_->setSizeConstraint(QLayout::SetFixedSize);
-    boardGUI_->setSpacing(0);
+    /*-------------Infos du joueurs(liste infos)-------------------*/
+    //QString::fromStdString(str)
+
+    nameP = new QLabel();
+    nameP->setText(QString::fromStdString(
+                       gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getName()));
+    nameP->setAlignment(Qt::AlignHCenter);
+    nbWall = new QLabel();
+    nbWall->setText(QString::number(
+                        gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getWallstock()));
+    nbWall->setAlignment(Qt::AlignHCenter);
+    sideObj = new QLabel();
+    sideObj->setText(QString::fromStdString
+                     (toString(gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getObjective())));
+    sideObj->setAlignment(Qt::AlignHCenter);
+    listInfo_->addWidget(nameP);
+    listInfo_->addWidget(nbWall);
+    listInfo_->addWidget(sideObj);
+
+    root_->setSizeConstraint(QLayout::SetFixedSize);
+    root_->setSpacing(0);
     root_->addLayout(boardGUI_);
+    root_->addSpacing(10);
     root_->addLayout(listInfo_);
 
 }

@@ -22,7 +22,9 @@ private:
     QGridLayout *boardGUI_;
     QVBoxLayout *listInfo_;
     QHBoxLayout *root_;
-
+    QLabel *nameP;
+    QLabel *nbWall;
+    QLabel *sideObj;
 };
 
 #endif // GAMEWINDOW_H
