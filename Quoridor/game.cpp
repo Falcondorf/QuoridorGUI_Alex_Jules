@@ -325,5 +325,5 @@ unsigned Game::getNum(unsigned row, unsigned col){
             return p.getNum();
         }
     }
-    return -1;
+    return 10000;
 }

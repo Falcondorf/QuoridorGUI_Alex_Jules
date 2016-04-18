@@ -1,9 +1,9 @@
 #include "gameWindow.h"
-
-void gameWindow::displayGrid()
-{
+#include <iostream>
+void gameWindow::declareVars(){
     double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
-    int width = (gameGUI_->getSizeGame()*2)-1;
+
+    /*-------------Pixmap----------------------*/
 
     QPixmap woodenFrame("pic/woodenFrame.jpg");
     woodenFrame = woodenFrame.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
@@ -20,62 +20,71 @@ void gameWindow::displayGrid()
     QPixmap wallE("pic/woodBackground.jpg");
     wallE = wallE.scaled(200,200,Qt::KeepAspectRatio);
 
+    /*-------------label rempli----------------*/
+
+     labelP1  = new QLabel();
+     labelP1->setPixmap(framePlayer);
+     labelP1->setMaximumSize(QSize(sizeCase,sizeCase));
+     labelP1->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+     labelP2  = new QLabel();
+     labelP2->setPixmap(framePlayer2);
+     labelP2->setMaximumSize(QSize(sizeCase,sizeCase));
+     labelP2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+     labelP3  = new QLabel();
+     labelP3->setPixmap(framePlayer3);
+     labelP3->setMaximumSize(QSize(sizeCase,sizeCase));
+     labelP3->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+     labelP4  = new QLabel();
+     labelP4->setPixmap(framePlayer4);
+     labelP4->setMaximumSize(QSize(sizeCase,sizeCase));
+     labelP4->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+     label2  = new QLabel();
+     label2->setPixmap(wall);
+     label2->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
+
+     label3  = new QLabel();
+     label3->setPixmap(wall);
+     label3->setMaximumSize(QSize(sizeCase,sizeCase/3));
+
+     label4  = new QLabel();
+     label4->setPixmap(wall);
+     label4->setMaximumSize(QSize(sizeCase/3,sizeCase));
+
+     /*-------------label vide----------------*/
+
+     labelP = new QLabel();
+     labelP->setPixmap(woodenFrame);
+     labelP->setMaximumSize(sizeCase, sizeCase);
+     labelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+     labelPCopy = new QLabel();
+     labelPCopy->setPixmap(woodenFrame);
+     labelPCopy->setMaximumSize(sizeCase, sizeCase);
+     labelPCopy->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+     label5  = new QLabel();
+     label5->setPixmap(wallE);
+     label5->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
+
+     label6  = new QLabel();
+     label6->setPixmap(wallE);
+     label6->setMaximumSize(QSize(sizeCase,sizeCase/3));
+
+     label7  = new QLabel();
+     label7->setPixmap(wallE);
+     label7->setMaximumSize(QSize(sizeCase/3,sizeCase));
+}
+
+void gameWindow::displayGrid()
+{
+    int width = (gameGUI_->getSizeGame()*2)-1;
     for (int i=0;i<width;i++){
         for(int j=0;j<width;j++){
-
-            /*-------------label rempli ---------------*/
-
-             QLabel *labelP1  = new QLabel();
-             labelP1->setPixmap(framePlayer);
-             labelP1->setMaximumSize(QSize(sizeCase,sizeCase));
-             labelP1->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
-             QLabel *labelP2  = new QLabel();
-             labelP2->setPixmap(framePlayer2);
-             labelP2->setMaximumSize(QSize(sizeCase,sizeCase));
-             labelP2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
-             QLabel *labelP3  = new QLabel();
-             labelP3->setPixmap(framePlayer3);
-             labelP3->setMaximumSize(QSize(sizeCase,sizeCase));
-             labelP3->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
-             QLabel *labelP4  = new QLabel();
-             labelP4->setPixmap(framePlayer4);
-             labelP4->setMaximumSize(QSize(sizeCase,sizeCase));
-             labelP4->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
-             QLabel *label2  = new QLabel();
-             label2->setPixmap(wall);
-             label2->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
-
-             QLabel *label3  = new QLabel();
-             label3->setPixmap(wall);
-             label3->setMaximumSize(QSize(sizeCase,sizeCase/3));
-
-             QLabel *label4  = new QLabel();
-             label4->setPixmap(wall);
-             label4->setMaximumSize(QSize(sizeCase/3,sizeCase));
-
-             /*-------------label vide ---------------*/
-
-             QLabel *labelP = new QLabel();
-             labelP->setPixmap(woodenFrame);
-             labelP->setMaximumSize(sizeCase, sizeCase);
-             labelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
-             QLabel *label5  = new QLabel();
-             label5->setPixmap(wallE);
-             label5->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
-
-             QLabel *label6  = new QLabel();
-             label6->setPixmap(wallE);
-             label6->setMaximumSize(QSize(sizeCase,sizeCase/3));
-
-             QLabel *label7  = new QLabel();
-             label7->setPixmap(wallE);
-             label7->setMaximumSize(QSize(sizeCase/3,sizeCase));
-
+            declareVars();
             if (gameGUI_->filledPos(i,j)){
                  if(i%2==0 && j%2==0){
                      switch (gameGUI_->getNum(i,j)){
@@ -213,24 +222,18 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     wallPannel = new QGridLayout;
     wallOpt = new QGroupBox;
     btN = new QPushButton("North");
-
     btS = new QPushButton("South");
-
     btW = new QPushButton("West");
-
     btE = new QPushButton("East");
-
     btNW= new QPushButton("NorthWest");
-
     btNE= new QPushButton("NorthEast");
-
     btSW= new QPushButton("SouthWest");
-
     btSE= new QPushButton("SouthEast");
-
     glRose = new QGridLayout;
     moveOpt= new QGroupBox;
     rightPannel = new QVBoxLayout;
+
+    declareVars();
 
     /*-------------Affichage de la grille--------------------------*/
 
@@ -272,9 +275,35 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
 
 void gameWindow::movementN(){
 
-    gameGUI_->move(Side::North);
 
-    displayGrid();
+
+   // displayGrid();
+    unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
+    unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
+        std::cout << gameGUI_->getNum(i,j) << std::endl;
+    switch (gameGUI_->getNum(i,j)){
+    case 1:
+
+
+           boardGUI_->addWidget(labelP1,i-2,j);
+        break;
+    case 2:
+
+           boardGUI_->addWidget(labelP2,i-2,j);
+        break;
+    case 3:
+
+           boardGUI_->addWidget(labelP3,i-2,j);
+        break;
+    case 4:
+
+           boardGUI_->addWidget(labelP4,i-2,j);
+        break;
+    }
+
+    boardGUI_->addWidget(labelP,i,j);
+    boardGUI_->addWidget(labelPCopy,(gameGUI_->getSizeGame()*2)-2,(gameGUI_->getSizeGame()*2)-2);
+    gameGUI_->move(Side::North);
 
     displayInfos();
 
@@ -285,9 +314,53 @@ void gameWindow::movementN(){
 
 void gameWindow::movementS(){
 
-    gameGUI_->move(Side::South);
 
-    displayGrid();
+    //displayGrid();
+    unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
+    unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
+
+
+    switch (gameGUI_->getNum(i,j)){
+    case 1:
+
+           boardGUI_->addWidget(labelP1,i+2,j);
+        break;
+    case 2:
+
+           boardGUI_->addWidget(labelP2,i+2,j);
+        break;
+    case 3:
+
+           boardGUI_->addWidget(labelP3,i+2,j);
+        break;
+    case 4:
+
+           boardGUI_->addWidget(labelP4,i+2,j);
+        break;
+    }
+
+    QPixmap woodenFrame("pic/woodenFrame.jpg");
+    woodenFrame = woodenFrame.scaled(1000/(3*gameGUI_->getSizeGame()-1),1000/(3*gameGUI_->getSizeGame()-1),Qt::KeepAspectRatio);
+    QLabel *lelabelP = new QLabel();
+    lelabelP->setPixmap(woodenFrame);
+    lelabelP->setMaximumSize(1000/(3*gameGUI_->getSizeGame()-1), 1000/(3*gameGUI_->getSizeGame()-1));
+    lelabelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+
+    woodenFrame = woodenFrame.scaled(1000/(3*gameGUI_->getSizeGame()-1),1000/(3*gameGUI_->getSizeGame()-1),Qt::KeepAspectRatio);
+    QLabel *lelabelP2 = new QLabel();
+    lelabelP2->setPixmap(woodenFrame);
+    lelabelP2->setMaximumSize(1000/(3*gameGUI_->getSizeGame()-1), 1000/(3*gameGUI_->getSizeGame()-1));
+    lelabelP2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+
+
+
+    boardGUI_->addWidget(lelabelP2,i,j);
+    boardGUI_->addWidget(lelabelP,(gameGUI_->getSizeGame()*2)-2,(gameGUI_->getSizeGame()*2)-2);
+    gameGUI_->move(Side::North);
+
+    gameGUI_->move(Side::South);
 
     displayInfos();
 

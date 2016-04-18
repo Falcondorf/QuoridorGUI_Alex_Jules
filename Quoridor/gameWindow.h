@@ -48,6 +48,21 @@ private:
     QGroupBox *moveOpt;
     QVBoxLayout *rightPannel;
 
+    QLabel *labelP;
+    QLabel *labelPCopy;
+    QLabel *labelP1;
+    QLabel *labelP2;
+    QLabel *labelP3;
+    QLabel *labelP4;
+    QLabel *label2;
+    QLabel *label3;
+    QLabel *label4;
+    QLabel *label5;
+    QLabel *label6;
+    QLabel *label7;
+
+    void declareVars();
+
     void displayGrid();
     void displayInfos();
     void displayMoves();
