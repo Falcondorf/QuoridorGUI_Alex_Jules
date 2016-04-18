@@ -5,20 +5,18 @@ void gameWindow::declareVars(){
 
     /*-------------Pixmap----------------------*/
 
-    QPixmap woodenFrame("pic/woodenFrame.jpg");
-    woodenFrame = woodenFrame.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
+
     QPixmap wall("pic/wallFrame.jpg");
     wall = wall.scaled(200,200,Qt::KeepAspectRatio);
-    QPixmap framePlayer("pic/woodenFrame_Player[1].jpg");
+    QPixmap framePlayer("pic/woodenFrame_Player[1].png");
     framePlayer = framePlayer.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
-    QPixmap framePlayer2("pic/woodenFrame_Player[2].jpg");
+    QPixmap framePlayer2("pic/woodenFrame_Player[2].png");
     framePlayer2 = framePlayer2.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
-    QPixmap framePlayer3("pic/woodenFrame_Player[3].jpg");
+    QPixmap framePlayer3("pic/woodenFrame_Player[3].png");
     framePlayer3 = framePlayer3.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
-    QPixmap framePlayer4("pic/woodenFrame_Player[4].jpg");
+    QPixmap framePlayer4("pic/woodenFrame_Player[4].png");
     framePlayer4 = framePlayer4.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
-    QPixmap wallE("pic/woodBackground.jpg");
-    wallE = wallE.scaled(200,200,Qt::KeepAspectRatio);
+
 
     /*-------------label rempli----------------*/
 
@@ -54,64 +52,46 @@ void gameWindow::declareVars(){
      label4->setPixmap(wall);
      label4->setMaximumSize(QSize(sizeCase/3,sizeCase));
 
-     /*-------------label vide----------------*/
+}
 
-     labelP = new QLabel();
-     labelP->setPixmap(woodenFrame);
-     labelP->setMaximumSize(sizeCase, sizeCase);
-     labelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+void gameWindow::declareVide()
+{
+    double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
 
-     labelPCopy = new QLabel();
-     labelPCopy->setPixmap(woodenFrame);
-     labelPCopy->setMaximumSize(sizeCase, sizeCase);
-     labelPCopy->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    QPixmap woodenFrame("pic/woodenFrame.jpg");
+    woodenFrame = woodenFrame.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
+    labelP = new QLabel();
+    labelP->setPixmap(woodenFrame);
+    labelP->setMaximumSize(sizeCase, sizeCase);
+    labelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
-     label5  = new QLabel();
-     label5->setPixmap(wallE);
-     label5->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
+    QPixmap wallE("pic/woodBackground.jpg");
+    wallE = wallE.scaled(200,200,Qt::KeepAspectRatio);
+    label5  = new QLabel();
+    label5->setPixmap(wallE);
+    label5->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
 
-     label6  = new QLabel();
-     label6->setPixmap(wallE);
-     label6->setMaximumSize(QSize(sizeCase,sizeCase/3));
+    label6  = new QLabel();
+    label6->setPixmap(wallE);
+    label6->setMaximumSize(QSize(sizeCase,sizeCase/3));
 
-     label7  = new QLabel();
-     label7->setPixmap(wallE);
-     label7->setMaximumSize(QSize(sizeCase/3,sizeCase));
+    label7  = new QLabel();
+    label7->setPixmap(wallE);
+    label7->setMaximumSize(QSize(sizeCase/3,sizeCase));
 }
 
 void gameWindow::displayGrid()
 {
+    declareVars();
     int width = (gameGUI_->getSizeGame()*2)-1;
-    for (int i=0;i<width;i++){
+    for(int i=0;i<width;i++){
         for(int j=0;j<width;j++){
-            declareVars();
-            if (gameGUI_->filledPos(i,j)){
-                 if(i%2==0 && j%2==0){
-                     switch (gameGUI_->getNum(i,j)){
-                     case 1:
-                            boardGUI_->addWidget(labelP1,i,j);
-                         break;
-                     case 2:
-                            boardGUI_->addWidget(labelP2,i,j);
-                         break;
-                     case 3:
-                            boardGUI_->addWidget(labelP3,i,j);
-                         break;
-                     case 4:
-                            boardGUI_->addWidget(labelP4,i,j);
-                         break;
-                     }
-                 }
-                 if(i%2!=0 && j%2!=0){
-                     boardGUI_->addWidget(label2,i,j);
-                 }
-                 if(i%2==0 && j%2!=0){
-                     boardGUI_->addWidget(label4,i,j);
-                 }
-                 if(i%2!=0 && j%2==0){
-                     boardGUI_->addWidget(label3,i,j);
-                 }
-            }else{
+
+            /*-------------label vide----------------*/
+
+            declareVide();
+
+
                 if(i%2==0 && j%2==0){
                     boardGUI_->addWidget(labelP,i,j);
                 }
@@ -124,8 +104,40 @@ void gameWindow::displayGrid()
                 if(i%2!=0 && j%2==0){
                     boardGUI_->addWidget(label6,i,j);
                 }
-            }
 
+        }
+    }
+    /*---------Disposition des pièces------------------*/
+
+    for(int i=0;i<width;i++){
+        for(int j=0;j<width;j++){
+                if(i%2==0 && j%2==0){
+                    if (gameGUI_->filledPos(i,j)){
+                        switch (gameGUI_->getNum(i,j)){
+                        case 1:
+                            boardGUI_->addWidget(labelP1,i,j);
+                            break;
+                        case 2:
+                            boardGUI_->addWidget(labelP2,i,j);
+                            break;
+                        case 3:
+                            boardGUI_->addWidget(labelP3,i,j);
+                            break;
+                        case 4:
+                            boardGUI_->addWidget(labelP4,i,j);
+                            break;
+                        }
+                    }
+                    /*if(i%2!=0 && j%2!=0){
+                        boardGUI_->addWidget(label2,i,j);
+                    }
+                    if(i%2==0 && j%2!=0){
+                        boardGUI_->addWidget(label4,i,j);
+                    }
+                    if(i%2!=0 && j%2==0){
+                        boardGUI_->addWidget(label3,i,j);
+                    }*/
+                }
         }
     }
 }
@@ -212,7 +224,7 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     nameP = new QLabel();
     nbWall = new QLabel();
     sideObj = new QLabel();
-    boardGUI_ = new QGridLayout;
+    boardGUI_ = new QGridLayout(this);
     listInfo_ = new QVBoxLayout;
     gblistInfo_ = new QGroupBox;
     sbRow = new QSpinBox;
@@ -233,7 +245,7 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     moveOpt= new QGroupBox;
     rightPannel = new QVBoxLayout;
 
-    declareVars();
+    //declareVars();
 
     /*-------------Affichage de la grille--------------------------*/
 
@@ -271,24 +283,22 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
 
     QObject::connect(btN, SIGNAL(clicked()), this, SLOT(movementN()));
     QObject::connect(btS, SIGNAL(clicked()), this, SLOT(movementS()));
+    QObject::connect(btW, SIGNAL(clicked()), this, SLOT(movementW()));
+    QObject::connect(btE, SIGNAL(clicked()), this, SLOT(movementE()));
 }
 
 void gameWindow::movementN(){
 
-
-
-   // displayGrid();
     unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
     unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
-        std::cout << gameGUI_->getNum(i,j) << std::endl;
-    switch (gameGUI_->getNum(i,j)){
+
+    //unsigned i2 =gameGUI_->getPlayer((gameGUI_->getCurrentPlayer()-1)%4).getPos().first;
+
+    switch (gameGUI_->getCurrentPlayer()){
     case 1:
-
-
            boardGUI_->addWidget(labelP1,i-2,j);
         break;
     case 2:
-
            boardGUI_->addWidget(labelP2,i-2,j);
         break;
     case 3:
@@ -300,33 +310,27 @@ void gameWindow::movementN(){
            boardGUI_->addWidget(labelP4,i-2,j);
         break;
     }
-
-    boardGUI_->addWidget(labelP,i,j);
-    boardGUI_->addWidget(labelPCopy,(gameGUI_->getSizeGame()*2)-2,(gameGUI_->getSizeGame()*2)-2);
     gameGUI_->move(Side::North);
 
     displayInfos();
 
     displayMoves();
 
-    this->show();
+    //this->show();
 }
 
 void gameWindow::movementS(){
 
-
-    //displayGrid();
     unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
     unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
 
+    //unsigned i2 =gameGUI_->getPlayer((gameGUI_->getCurrentPlayer()-1)%4).getPos().first;
 
     switch (gameGUI_->getNum(i,j)){
     case 1:
-
            boardGUI_->addWidget(labelP1,i+2,j);
         break;
     case 2:
-
            boardGUI_->addWidget(labelP2,i+2,j);
         break;
     case 3:
@@ -338,33 +342,79 @@ void gameWindow::movementS(){
            boardGUI_->addWidget(labelP4,i+2,j);
         break;
     }
-
-    QPixmap woodenFrame("pic/woodenFrame.jpg");
-    woodenFrame = woodenFrame.scaled(1000/(3*gameGUI_->getSizeGame()-1),1000/(3*gameGUI_->getSizeGame()-1),Qt::KeepAspectRatio);
-    QLabel *lelabelP = new QLabel();
-    lelabelP->setPixmap(woodenFrame);
-    lelabelP->setMaximumSize(1000/(3*gameGUI_->getSizeGame()-1), 1000/(3*gameGUI_->getSizeGame()-1));
-    lelabelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
-
-    woodenFrame = woodenFrame.scaled(1000/(3*gameGUI_->getSizeGame()-1),1000/(3*gameGUI_->getSizeGame()-1),Qt::KeepAspectRatio);
-    QLabel *lelabelP2 = new QLabel();
-    lelabelP2->setPixmap(woodenFrame);
-    lelabelP2->setMaximumSize(1000/(3*gameGUI_->getSizeGame()-1), 1000/(3*gameGUI_->getSizeGame()-1));
-    lelabelP2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
-
-
-
-    boardGUI_->addWidget(lelabelP2,i,j);
-    boardGUI_->addWidget(lelabelP,(gameGUI_->getSizeGame()*2)-2,(gameGUI_->getSizeGame()*2)-2);
-    gameGUI_->move(Side::North);
-
     gameGUI_->move(Side::South);
+
+
+  //  boardGUI_->addWidget(lelabelP2,i,j);
+   // boardGUI_->addWidget(lelabelP,(gameGUI_->getSizeGame()*2)-2,(gameGUI_->getSizeGame()*2)-2);
+
+
 
     displayInfos();
 
     displayMoves();
 
-    this->show();
+    //this->show();
+}
+void gameWindow::movementW(){
+
+    unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
+    unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
+
+    //unsigned i2 =gameGUI_->getPlayer((gameGUI_->getCurrentPlayer()-1)%4).getPos().first;
+
+    switch (gameGUI_->getCurrentPlayer()){
+    case 1:
+           boardGUI_->addWidget(labelP1,i,j-2);
+        break;
+    case 2:
+           boardGUI_->addWidget(labelP2,i,j-2);
+        break;
+    case 3:
+
+           boardGUI_->addWidget(labelP3,i,j-2);
+        break;
+    case 4:
+
+           boardGUI_->addWidget(labelP4,i,j-2);
+        break;
+    }
+    gameGUI_->move(Side::West);
+
+    displayInfos();
+
+    displayMoves();
+
+    //this->show();
+}
+void gameWindow::movementE(){
+
+    unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
+    unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
+
+    //unsigned i2 =gameGUI_->getPlayer((gameGUI_->getCurrentPlayer()-1)%4).getPos().first;
+
+    switch (gameGUI_->getCurrentPlayer()){
+    case 1:
+           boardGUI_->addWidget(labelP1,i,j+2);
+        break;
+    case 2:
+           boardGUI_->addWidget(labelP2,i,j+2);
+        break;
+    case 3:
+
+           boardGUI_->addWidget(labelP3,i,j+2);
+        break;
+    case 4:
+
+           boardGUI_->addWidget(labelP4,i,j+2);
+        break;
+    }
+    gameGUI_->move(Side::East);
+
+    displayInfos();
+
+    displayMoves();
+
+    //this->show();
 }

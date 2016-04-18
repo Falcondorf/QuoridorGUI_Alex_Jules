@@ -16,12 +16,17 @@ class gameWindow : public QWidget
 public:
     explicit gameWindow(Game *myGame, QWidget *parent = 0);
 
+    void declareVide();
 signals:
 
 public slots:
     void movementN();
     void movementS();
+    void movementW();
+    void movementE();
+
 private:
+
     Game *gameGUI_;
     QGridLayout *boardGUI_;
     QVBoxLayout *listInfo_;
