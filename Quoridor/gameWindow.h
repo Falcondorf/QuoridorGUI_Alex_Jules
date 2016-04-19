@@ -13,6 +13,7 @@
 #include "observer.h"
 #include "subject.h"
 
+
 class gameWindow : public QWidget, nvs::Observer
 {
     Q_OBJECT
@@ -35,6 +36,8 @@ private slots:
 
 private:
 
+
+    QLabel *end;
     bool isDisplayed =false;
     Game *gameGUI_;
     QGridLayout *boardGUI_;

@@ -327,6 +327,15 @@ gameWindow::~gameWindow(){
 
 void gameWindow::update(const Subject *subject){
     if (subject!=gameGUI_) return;
+    if (gameGUI_->isOver()){
+        end = new QLabel();
+        end->setText("fin");
+        end->setAlignment(Qt::AlignCenter);
+        end->setMaximumHeight(200);
+ //       end->setFont(QFont::Weight::Bold);
+        end->show();
+        this->close();
+    }
     displaceLabel();
     displayInfos();
     displayMoves();
@@ -427,6 +436,7 @@ void gameWindow::movementSW(){
 void gameWindow::placeWall(){
     try{
         isDisplayed=true;
+
         gameGUI_->playWall(sbRow->value(), sbCol->value(), cbVertical->isChecked());
 
     }catch(std::exception & e){

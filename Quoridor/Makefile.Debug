@@ -404,6 +404,9 @@ debug/moc_titleWindow.cpp: C:/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
 		subject.h \
 		gameWindow.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/QGridLayout \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox.h \
+		observer.h \
 		titleWindow.h
 	C:\Qt\5.4\mingw491_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.4/mingw491_32/mkspecs/win32-g++ -IC:/Users/Pierre/git/QuoridorGUI_Alex_Jules/Quoridor -IC:/Qt/5.4/mingw491_32/include -IC:/Qt/5.4/mingw491_32/include/QtWidgets -IC:/Qt/5.4/mingw491_32/include/QtGui -IC:/Qt/5.4/mingw491_32/include/QtCore titleWindow.h -o debug\moc_titleWindow.cpp
 
@@ -535,6 +538,9 @@ debug/moc_gameWindow.cpp: game.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/5.4/mingw491_32/include/QtGui/qicon.h \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox.h \
+		observer.h \
 		gameWindow.h
 	C:\Qt\5.4\mingw491_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.4/mingw491_32/mkspecs/win32-g++ -IC:/Users/Pierre/git/QuoridorGUI_Alex_Jules/Quoridor -IC:/Qt/5.4/mingw491_32/include -IC:/Qt/5.4/mingw491_32/include/QtWidgets -IC:/Qt/5.4/mingw491_32/include/QtGui -IC:/Qt/5.4/mingw491_32/include/QtCore gameWindow.h -o debug\moc_gameWindow.cpp
 
@@ -674,6 +680,9 @@ debug/moc_formulaireWindow.cpp: C:/Qt/5.4/mingw491_32/include/QtWidgets/QWidget 
 		subject.h \
 		gameWindow.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/QGridLayout \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox.h \
+		observer.h \
 		formulaireWindow.h
 	C:\Qt\5.4\mingw491_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.4/mingw491_32/mkspecs/win32-g++ -IC:/Users/Pierre/git/QuoridorGUI_Alex_Jules/Quoridor -IC:/Qt/5.4/mingw491_32/include -IC:/Qt/5.4/mingw491_32/include/QtWidgets -IC:/Qt/5.4/mingw491_32/include/QtGui -IC:/Qt/5.4/mingw491_32/include/QtCore formulaireWindow.h -o debug\moc_formulaireWindow.cpp
 
@@ -817,6 +826,9 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/5.4/mingw491_32/include/QtGui/qinputmethod.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/QButtonGroup \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/qbuttongroup.h \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/QCheckBox \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox.h \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/QGroupBox \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/qgroupbox.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/qframe.h \
@@ -996,6 +1008,9 @@ debug/mainView.o: mainView.cpp mainwindow.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/qgroupbox.h \
 		gameWindow.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/QGridLayout \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox.h \
+		observer.h \
 		titleWindow.h \
 		C:/Qt/5.4/mingw491_32/include/QtGui/QPixmap \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/QApplication \
@@ -1190,7 +1205,10 @@ debug/titleWindow.o: titleWindow.cpp titleWindow.h \
 		Player.h \
 		subject.h \
 		gameWindow.h \
-		C:/Qt/5.4/mingw491_32/include/QtWidgets/QGridLayout
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/QGridLayout \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox.h \
+		observer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\titleWindow.o titleWindow.cpp
 
 debug/gameWindow.o: gameWindow.cpp gameWindow.h \
@@ -1321,7 +1339,10 @@ debug/gameWindow.o: gameWindow.cpp gameWindow.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/QPushButton \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/5.4/mingw491_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/5.4/mingw491_32/include/QtGui/qicon.h
+		C:/Qt/5.4/mingw491_32/include/QtGui/qicon.h \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox.h \
+		observer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\gameWindow.o gameWindow.cpp
 
 debug/formulaireWindow.o: formulaireWindow.cpp formulaireWindow.h \
@@ -1460,7 +1481,10 @@ debug/formulaireWindow.o: formulaireWindow.cpp formulaireWindow.h \
 		Player.h \
 		subject.h \
 		gameWindow.h \
-		C:/Qt/5.4/mingw491_32/include/QtWidgets/QGridLayout
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/QGridLayout \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox \
+		C:/Qt/5.4/mingw491_32/include/QtWidgets/qcheckbox.h \
+		observer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\formulaireWindow.o formulaireWindow.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 
