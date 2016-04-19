@@ -6,8 +6,7 @@ void gameWindow::declareVars(){
     /*-------------Pixmap----------------------*/
 
 
-    QPixmap wall("pic/wallFrame.jpg");
-    wall = wall.scaled(200,200,Qt::KeepAspectRatio);
+
     QPixmap framePlayer("pic/woodenFrame_Player[1].png");
     framePlayer = framePlayer.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
     QPixmap framePlayer2("pic/woodenFrame_Player[2].png");
@@ -40,19 +39,40 @@ void gameWindow::declareVars(){
      labelP4->setMaximumSize(QSize(sizeCase,sizeCase));
      labelP4->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
-     label2  = new QLabel();
-     label2->setPixmap(wall);
-     label2->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
 
-     label3  = new QLabel();
-     label3->setPixmap(wall);
-     label3->setMaximumSize(QSize(sizeCase,sizeCase/3));
-
-     label4  = new QLabel();
-     label4->setPixmap(wall);
-     label4->setMaximumSize(QSize(sizeCase/3,sizeCase));
 
 }
+void gameWindow::declareWallH(){
+    double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
+    QPixmap wall("pic/wallFrame.jpg");
+    wall = wall.scaled(200,200,Qt::KeepAspectRatio);
+
+    label2  = new QLabel();
+    label2->setPixmap(wall);
+    label2->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
+    for (int i=1; i<=2;i++){
+        label3  = new QLabel();
+        label3->setPixmap(wall);
+        label3->setMaximumSize(QSize(sizeCase,sizeCase/3));
+    }
+
+}
+
+void gameWindow::declareWallV(){
+    double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
+    QPixmap wall("pic/wallFrame.jpg");
+    wall = wall.scaled(200,200,Qt::KeepAspectRatio);
+
+    label2  = new QLabel();
+    label2->setPixmap(wall);
+    label2->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
+    for (int i = 1; i <=2; i++){
+        label4  = new QLabel();
+        label4->setPixmap(wall);
+        label4->setMaximumSize(QSize(sizeCase/3,sizeCase));
+       }
+}
+
 
 void gameWindow::declareVide()
 {
@@ -60,10 +80,12 @@ void gameWindow::declareVide()
 
     QPixmap woodenFrame("pic/woodenFrame.jpg");
     woodenFrame = woodenFrame.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
+
     labelP = new QLabel();
     labelP->setPixmap(woodenFrame);
     labelP->setMaximumSize(sizeCase, sizeCase);
     labelP->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
 
     QPixmap wallE("pic/woodBackground.jpg");
     wallE = wallE.scaled(200,200,Qt::KeepAspectRatio);
@@ -231,6 +253,8 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     lRow = new QLabel("Row");
     sbCol = new QSpinBox;
     lCol = new QLabel("Column");
+    cbVertical = new QCheckBox("Vertical ?");
+    pbPlace = new QPushButton("Place the wall");
     wallPannel = new QGridLayout;
     wallOpt = new QGroupBox;
     btN = new QPushButton("North");
@@ -261,14 +285,19 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
 
     /*-------------Placement de mur--------------------------------*/
     //wallPannel->setHorizontalSpacing(0);
-    sbRow->setMaximum(gameGUI_->getSizeGame());
-    sbRow->setMinimum(0);
-    sbCol->setMaximum(gameGUI_->getSizeGame());
-    sbCol->setMinimum(0);
+    sbRow->setRange(1, gameGUI_->getSizeGame()*2-3);
+    sbRow->setSingleStep(2);
+    sbRow->setPrefix("Row: ");
+    sbCol->setRange(1, gameGUI_->getSizeGame()*2-3);
+    sbCol->setSingleStep(2);
+    sbCol->setPrefix("Column: ");
+
     wallPannel->addWidget(lRow, 0, 0);
     wallPannel->addWidget(lCol, 0, 1);
     wallPannel->addWidget(sbRow, 1, 0);
     wallPannel->addWidget(sbCol, 1, 1);
+    wallPannel->addWidget(cbVertical,2,0);
+    wallPannel->addWidget(pbPlace,2,1);
     wallOpt->setTitle("Place Wall");
     wallOpt->setLayout(wallPannel);
 
@@ -289,6 +318,8 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     QObject::connect(btSW, SIGNAL(clicked()), this, SLOT(movementSW()));
     QObject::connect(btSE, SIGNAL(clicked()), this, SLOT(movementSE()));
     QObject::connect(btNE, SIGNAL(clicked()), this, SLOT(movementNE()));
+    QObject::connect(pbPlace, SIGNAL(clicked()), this, SLOT(placeWall()));
+
 }
 
 void gameWindow::displaceLabel()
@@ -411,5 +442,35 @@ void gameWindow::movementSW(){
     displayInfos();
 
     displayMoves();
+
+}
+void gameWindow::placeWall(){
+    try{
+        if (cbVertical->isChecked()){
+
+            if(gameGUI_->playWall(sbRow->value(), sbCol->value(), 1)){
+                declareWallV();
+                boardGUI_->addWidget(label4,sbRow->value()-1, sbCol->value());
+                boardGUI_->addWidget(label2,sbRow->value(), sbCol->value());
+                declareWallV();
+                boardGUI_->addWidget(label4,sbRow->value()+1, sbCol->value());
+            }
+
+        }else {
+            if(gameGUI_->playWall(sbRow->value(), sbCol->value(), 0)){
+                declareWallH();
+                boardGUI_->addWidget(label3,sbRow->value(), sbCol->value()+1);
+                boardGUI_->addWidget(label2,sbRow->value(), sbCol->value());
+                declareWallH();
+                boardGUI_->addWidget(label3,sbRow->value(), sbCol->value()-1);
+            }
+        }
+    }catch(std::exception & e){
+        std::cout << e.what() << std::endl;
+    }
+
+        displayInfos();
+
+        displayMoves();
 
 }

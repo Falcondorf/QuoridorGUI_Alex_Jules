@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.1
+** Created by: Qt User Interface Compiler version 5.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -49,6 +50,7 @@ public:
     QLineEdit *lineEdit_4;
     QLabel *label_5;
     QLabel *label_6;
+    QCheckBox *checkBox;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -160,6 +162,9 @@ public:
 
         horizontalLayout_3->addWidget(groupBox);
 
+        checkBox = new QCheckBox(centralWidget);
+        checkBox->setObjectName(QStringLiteral("checkBox"));
+        checkBox->setGeometry(QRect(110, 230, 70, 17));
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -178,6 +183,7 @@ public:
         groupBox->setTitle(QApplication::translate("MainWindow", "GroupBox", 0));
         label_5->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         label_6->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        checkBox->setText(QApplication::translate("MainWindow", "CheckBox", 0));
     } // retranslateUi
 
 };

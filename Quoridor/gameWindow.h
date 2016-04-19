@@ -9,6 +9,7 @@
 #include <QGroupBox>
 #include <QSpinBox>
 #include <QPushButton>
+#include <qcheckbox>
 
 class gameWindow : public QWidget
 {
@@ -28,6 +29,7 @@ public slots:
     void movementSE();
     void movementNW();
     void movementSW();
+    void placeWall();
 
 private:
 
@@ -43,8 +45,11 @@ private:
     QSpinBox *sbRow;
     QLabel *lCol;
     QSpinBox *sbCol;
+    QCheckBox *cbVertical;
     QGridLayout *wallPannel;
+    QPushButton *pbPlace;
     QGroupBox *wallOpt;
+
     QPushButton *btN;
     QPushButton *btS;
     QPushButton *btW;
@@ -56,6 +61,7 @@ private:
     QGridLayout *glRose;
     QGroupBox *moveOpt;
     QVBoxLayout *rightPannel;
+
 
     QLabel *labelP;
     QLabel *labelPCopy;
@@ -71,7 +77,8 @@ private:
     QLabel *label7;
 
     void declareVars();
-
+    void declareWallH();
+    void declareWallV();
     void displayGrid();
     void displayInfos();
     void displayMoves();
