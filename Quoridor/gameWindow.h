@@ -10,17 +10,18 @@
 #include <QSpinBox>
 #include <QPushButton>
 #include <qcheckbox>
+#include "observer.h"
+#include "subject.h"
 
-class gameWindow : public QWidget
+class gameWindow : public QWidget, nvs::Observer
 {
     Q_OBJECT
 public:
-    explicit gameWindow(Game *myGame, QWidget *parent = 0);
+     explicit gameWindow(Game *myGame, QWidget *parent = 0);
+     virtual void update(const nvs::Subject *subject) override;
+     virtual ~gameWindow();
 
-    void declareVide();
-signals:
-
-public slots:
+private slots:
     void movementN();
     void movementS();
     void movementW();
@@ -31,8 +32,10 @@ public slots:
     void movementSW();
     void placeWall();
 
+
 private:
 
+    bool isDisplayed =false;
     Game *gameGUI_;
     QGridLayout *boardGUI_;
     QVBoxLayout *listInfo_;
@@ -77,12 +80,12 @@ private:
     QLabel *label7;
 
     void declareVars();
-    void declareWallH();
-    void declareWallV();
+    void declareWall();
     void displayGrid();
     void displayInfos();
     void displayMoves();
     void displaceLabel();
+    void declareVide();
 };
 
 #endif // GAMEWINDOW_H

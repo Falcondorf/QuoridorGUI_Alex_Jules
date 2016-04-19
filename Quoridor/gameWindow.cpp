@@ -1,5 +1,6 @@
 #include "gameWindow.h"
 #include <iostream>
+using namespace nvs;
 void gameWindow::declareVars(){
     double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
 
@@ -42,7 +43,9 @@ void gameWindow::declareVars(){
 
 
 }
-void gameWindow::declareWallH(){
+
+
+void gameWindow::declareWall(){
     double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
     QPixmap wall("pic/wallFrame.jpg");
     wall = wall.scaled(200,200,Qt::KeepAspectRatio);
@@ -50,27 +53,22 @@ void gameWindow::declareWallH(){
     label2  = new QLabel();
     label2->setPixmap(wall);
     label2->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
-    for (int i=1; i<=2;i++){
-        label3  = new QLabel();
-        label3->setPixmap(wall);
-        label3->setMaximumSize(QSize(sizeCase,sizeCase/3));
+    if (cbVertical->isChecked()){
+
+        for (int i = 1; i <=2; i++){
+            label4  = new QLabel();
+            label4->setPixmap(wall);
+            label4->setMaximumSize(QSize(sizeCase/3,sizeCase));
+        }
+    }else{
+
+        for (int i=1; i<=2;i++){
+            label3  = new QLabel();
+            label3->setPixmap(wall);
+            label3->setMaximumSize(QSize(sizeCase,sizeCase/3));
+        }
     }
 
-}
-
-void gameWindow::declareWallV(){
-    double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
-    QPixmap wall("pic/wallFrame.jpg");
-    wall = wall.scaled(200,200,Qt::KeepAspectRatio);
-
-    label2  = new QLabel();
-    label2->setPixmap(wall);
-    label2->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
-    for (int i = 1; i <=2; i++){
-        label4  = new QLabel();
-        label4->setPixmap(wall);
-        label4->setMaximumSize(QSize(sizeCase/3,sizeCase));
-       }
 }
 
 
@@ -320,7 +318,36 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     QObject::connect(btNE, SIGNAL(clicked()), this, SLOT(movementNE()));
     QObject::connect(pbPlace, SIGNAL(clicked()), this, SLOT(placeWall()));
 
+    gameGUI_->registerObserver(this);
+
 }
+gameWindow::~gameWindow(){
+    gameGUI_->unregisterObserver(this);
+}
+
+void gameWindow::update(const Subject *subject){
+    if (subject!=gameGUI_) return;
+    displaceLabel();
+    displayInfos();
+    displayMoves();
+    if(isDisplayed){
+        if (cbVertical->isChecked() ){
+                declareWall();
+                boardGUI_->addWidget(label4,sbRow->value()-1, sbCol->value());
+                boardGUI_->addWidget(label2,sbRow->value(), sbCol->value());
+                declareWall();
+                boardGUI_->addWidget(label4,sbRow->value()+1, sbCol->value());
+        }else {
+                declareWall();
+                boardGUI_->addWidget(label3,sbRow->value(), sbCol->value()+1);
+                boardGUI_->addWidget(label2,sbRow->value(), sbCol->value());
+                declareWall();
+                boardGUI_->addWidget(label3,sbRow->value(), sbCol->value()-1);
+        }
+    }
+    isDisplayed=false;
+}
+
 
 void gameWindow::displaceLabel()
 {
@@ -349,128 +376,61 @@ void gameWindow::displaceLabel()
     }
 }
 
+//void gameWindow::movement(Side side){
+//    gameGUI_->move(side);
+//}
+
 void gameWindow::movementN(){
 
     gameGUI_->move(Side::North);
 
-    displaceLabel();
-
-    displayInfos();
-
-    displayMoves();
-
-    //this->show();
 }
 
 void gameWindow::movementS(){
 
     gameGUI_->move(Side::South);
 
-    displaceLabel();
-
-    displayInfos();
-
-    displayMoves();
-
-    //this->show();
 }
 void gameWindow::movementW(){
 
     gameGUI_->move(Side::West);
 
-    displaceLabel();
 
-    displayInfos();
-
-    displayMoves();
-
-    //this->show();
 }
 void gameWindow::movementE(){
 
     gameGUI_->move(Side::East);
 
-    displaceLabel();
-
-    displayInfos();
-
-    displayMoves();
-
-    //this->show();
 }
 void gameWindow::movementNW(){
 
     gameGUI_->move(Side::NorthWest);
-
-    displaceLabel();
-
-    displayInfos();
-
-    displayMoves();
-
 
 }
 void gameWindow::movementSE(){
 
     gameGUI_->move(Side::SouthEast);
 
-    displaceLabel();
 
-    displayInfos();
-
-    displayMoves();
 
 }
 void gameWindow::movementNE(){
 
     gameGUI_->move(Side::NorthEast);
 
-    displaceLabel();
-
-    displayInfos();
-
-    displayMoves();
-
-
 }
 void gameWindow::movementSW(){
 
     gameGUI_->move(Side::SouthWest);
 
-    displaceLabel();
-
-    displayInfos();
-
-    displayMoves();
-
 }
 void gameWindow::placeWall(){
     try{
-        if (cbVertical->isChecked()){
+        isDisplayed=true;
+        gameGUI_->playWall(sbRow->value(), sbCol->value(), cbVertical->isChecked());
 
-            if(gameGUI_->playWall(sbRow->value(), sbCol->value(), 1)){
-                declareWallV();
-                boardGUI_->addWidget(label4,sbRow->value()-1, sbCol->value());
-                boardGUI_->addWidget(label2,sbRow->value(), sbCol->value());
-                declareWallV();
-                boardGUI_->addWidget(label4,sbRow->value()+1, sbCol->value());
-            }
-
-        }else {
-            if(gameGUI_->playWall(sbRow->value(), sbCol->value(), 0)){
-                declareWallH();
-                boardGUI_->addWidget(label3,sbRow->value(), sbCol->value()+1);
-                boardGUI_->addWidget(label2,sbRow->value(), sbCol->value());
-                declareWallH();
-                boardGUI_->addWidget(label3,sbRow->value(), sbCol->value()-1);
-            }
-        }
     }catch(std::exception & e){
         std::cout << e.what() << std::endl;
     }
-
-        displayInfos();
-
-        displayMoves();
 
 }
