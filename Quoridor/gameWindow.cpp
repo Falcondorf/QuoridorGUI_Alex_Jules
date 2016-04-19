@@ -285,32 +285,44 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     QObject::connect(btS, SIGNAL(clicked()), this, SLOT(movementS()));
     QObject::connect(btW, SIGNAL(clicked()), this, SLOT(movementW()));
     QObject::connect(btE, SIGNAL(clicked()), this, SLOT(movementE()));
+    QObject::connect(btNW, SIGNAL(clicked()), this, SLOT(movementNW()));
+    QObject::connect(btSW, SIGNAL(clicked()), this, SLOT(movementSW()));
+    QObject::connect(btSE, SIGNAL(clicked()), this, SLOT(movementSE()));
+    QObject::connect(btNE, SIGNAL(clicked()), this, SLOT(movementNE()));
+}
+
+void gameWindow::displaceLabel()
+{
+    unsigned previousP = (gameGUI_->getCurrentPlayer()-1)%gameGUI_->getNbP();
+    if (previousP==0){
+        previousP = gameGUI_->getNbP();
+    }
+    unsigned iP = gameGUI_->getPlayer(previousP).getPos().first;
+    unsigned jP = gameGUI_->getPlayer(previousP).getPos().second;
+
+    switch (previousP){
+    case 1:
+           boardGUI_->addWidget(labelP1,iP, jP);
+        break;
+    case 2:
+           boardGUI_->addWidget(labelP2,iP,jP);
+        break;
+    case 3:
+
+           boardGUI_->addWidget(labelP3,iP,jP);
+        break;
+    case 4:
+
+           boardGUI_->addWidget(labelP4,iP,jP);
+        break;
+    }
 }
 
 void gameWindow::movementN(){
 
-    unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
-    unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
-
-    //unsigned i2 =gameGUI_->getPlayer((gameGUI_->getCurrentPlayer()-1)%4).getPos().first;
-
-    switch (gameGUI_->getCurrentPlayer()){
-    case 1:
-           boardGUI_->addWidget(labelP1,i-2,j);
-        break;
-    case 2:
-           boardGUI_->addWidget(labelP2,i-2,j);
-        break;
-    case 3:
-
-           boardGUI_->addWidget(labelP3,i-2,j);
-        break;
-    case 4:
-
-           boardGUI_->addWidget(labelP4,i-2,j);
-        break;
-    }
     gameGUI_->move(Side::North);
+
+    displaceLabel();
 
     displayInfos();
 
@@ -321,34 +333,9 @@ void gameWindow::movementN(){
 
 void gameWindow::movementS(){
 
-    unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
-    unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
-
-    //unsigned i2 =gameGUI_->getPlayer((gameGUI_->getCurrentPlayer()-1)%4).getPos().first;
-
-    switch (gameGUI_->getNum(i,j)){
-    case 1:
-           boardGUI_->addWidget(labelP1,i+2,j);
-        break;
-    case 2:
-           boardGUI_->addWidget(labelP2,i+2,j);
-        break;
-    case 3:
-
-           boardGUI_->addWidget(labelP3,i+2,j);
-        break;
-    case 4:
-
-           boardGUI_->addWidget(labelP4,i+2,j);
-        break;
-    }
     gameGUI_->move(Side::South);
 
-
-  //  boardGUI_->addWidget(lelabelP2,i,j);
-   // boardGUI_->addWidget(lelabelP,(gameGUI_->getSizeGame()*2)-2,(gameGUI_->getSizeGame()*2)-2);
-
-
+    displaceLabel();
 
     displayInfos();
 
@@ -358,28 +345,9 @@ void gameWindow::movementS(){
 }
 void gameWindow::movementW(){
 
-    unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
-    unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
-
-    //unsigned i2 =gameGUI_->getPlayer((gameGUI_->getCurrentPlayer()-1)%4).getPos().first;
-
-    switch (gameGUI_->getCurrentPlayer()){
-    case 1:
-           boardGUI_->addWidget(labelP1,i,j-2);
-        break;
-    case 2:
-           boardGUI_->addWidget(labelP2,i,j-2);
-        break;
-    case 3:
-
-           boardGUI_->addWidget(labelP3,i,j-2);
-        break;
-    case 4:
-
-           boardGUI_->addWidget(labelP4,i,j-2);
-        break;
-    }
     gameGUI_->move(Side::West);
+
+    displaceLabel();
 
     displayInfos();
 
@@ -389,32 +357,59 @@ void gameWindow::movementW(){
 }
 void gameWindow::movementE(){
 
-    unsigned i =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().first;
-    unsigned j =gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getPos().second;
-
-    //unsigned i2 =gameGUI_->getPlayer((gameGUI_->getCurrentPlayer()-1)%4).getPos().first;
-
-    switch (gameGUI_->getCurrentPlayer()){
-    case 1:
-           boardGUI_->addWidget(labelP1,i,j+2);
-        break;
-    case 2:
-           boardGUI_->addWidget(labelP2,i,j+2);
-        break;
-    case 3:
-
-           boardGUI_->addWidget(labelP3,i,j+2);
-        break;
-    case 4:
-
-           boardGUI_->addWidget(labelP4,i,j+2);
-        break;
-    }
     gameGUI_->move(Side::East);
+
+    displaceLabel();
 
     displayInfos();
 
     displayMoves();
 
     //this->show();
+}
+void gameWindow::movementNW(){
+
+    gameGUI_->move(Side::NorthWest);
+
+    displaceLabel();
+
+    displayInfos();
+
+    displayMoves();
+
+
+}
+void gameWindow::movementSE(){
+
+    gameGUI_->move(Side::SouthEast);
+
+    displaceLabel();
+
+    displayInfos();
+
+    displayMoves();
+
+}
+void gameWindow::movementNE(){
+
+    gameGUI_->move(Side::NorthEast);
+
+    displaceLabel();
+
+    displayInfos();
+
+    displayMoves();
+
+
+}
+void gameWindow::movementSW(){
+
+    gameGUI_->move(Side::SouthWest);
+
+    displaceLabel();
+
+    displayInfos();
+
+    displayMoves();
+
 }

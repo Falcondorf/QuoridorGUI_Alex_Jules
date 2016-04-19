@@ -24,6 +24,10 @@ public slots:
     void movementS();
     void movementW();
     void movementE();
+    void movementNE();
+    void movementSE();
+    void movementNW();
+    void movementSW();
 
 private:
 
@@ -71,6 +75,7 @@ private:
     void displayGrid();
     void displayInfos();
     void displayMoves();
+    void displaceLabel();
 };
 
 #endif // GAMEWINDOW_H
