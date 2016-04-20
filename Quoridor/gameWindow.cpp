@@ -1,8 +1,9 @@
 #include "gameWindow.h"
 #include <iostream>
+#include <QFont>
 using namespace nvs;
 void gameWindow::declareVars(){
-    double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
+    double sizeCase= 1400/(3*gameGUI_->getSizeGame()-1);
 
     /*-------------Pixmap----------------------*/
 
@@ -46,9 +47,9 @@ void gameWindow::declareVars(){
 
 
 void gameWindow::declareWall(){
-    double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
+    double sizeCase= 1400/(3*gameGUI_->getSizeGame()-1);
     QPixmap wall("pic/wallFrame.jpg");
-    wall = wall.scaled(200,200,Qt::KeepAspectRatio);
+    wall = wall.scaled(270,270,Qt::KeepAspectRatio);
 
     label2  = new QLabel();
     label2->setPixmap(wall);
@@ -74,7 +75,7 @@ void gameWindow::declareWall(){
 
 void gameWindow::declareVide()
 {
-    double sizeCase= 1000/(3*gameGUI_->getSizeGame()-1);
+    double sizeCase= 1400/(3*gameGUI_->getSizeGame()-1);
 
     QPixmap woodenFrame("pic/woodenFrame.jpg");
     woodenFrame = woodenFrame.scaled(sizeCase,sizeCase,Qt::KeepAspectRatio);
@@ -86,7 +87,7 @@ void gameWindow::declareVide()
 
 
     QPixmap wallE("pic/woodBackground.jpg");
-    wallE = wallE.scaled(200,200,Qt::KeepAspectRatio);
+    wallE = wallE.scaled(270,270,Qt::KeepAspectRatio);
     label5  = new QLabel();
     label5->setPixmap(wallE);
     label5->setMaximumSize(QSize(sizeCase/3,sizeCase/3));
@@ -102,29 +103,55 @@ void gameWindow::declareVide()
 
 void gameWindow::displayGrid()
 {
+    double sizeCase= 1400/(3*gameGUI_->getSizeGame()-1);
     declareVars();
     int width = (gameGUI_->getSizeGame()*2)-1;
-    for(int i=0;i<width;i++){
-        for(int j=0;j<width;j++){
+    for(int i=0;i<width+1;i++){
+        for(int j=0;j<width+1;j++){
 
             /*-------------label vide----------------*/
 
             declareVide();
 
 
-                if(i%2==0 && j%2==0){
+                if(i%2==0 && j%2==0&& (i!= width && j!= width)){
                     boardGUI_->addWidget(labelP,i,j);
                 }
-                if(i%2!=0 && j%2!=0){
+                if(i%2!=0 && j%2!=0 && (i!= width && j!= width) ){
                     boardGUI_->addWidget(label5,i,j);
                 }
-                if(i%2==0 && j%2!=0){
+                if(i%2==0 && j%2!=0 && (i!= width && j!= width)){
                     boardGUI_->addWidget(label7,i,j);
                 }
-                if(i%2!=0 && j%2==0){
+                if(i%2!=0 && j%2==0 && (i!= width && j!= width)){
                     boardGUI_->addWidget(label6,i,j);
                 }
 
+                if(i==width && j%2!=0){
+                    QLabel *indicej = new QLabel();
+                    QString s = QString::number(j);
+                    indicej->setText(s);
+                    QFont font = indicej->font();
+                    font.setPointSize(sizeCase/5);
+                    indicej->setFont(font);
+                    boardGUI_->addWidget(indicej,i,j);
+                }
+                if(j==width && i%2!=0){
+                    QLabel *indicei = new QLabel();
+                    QString s = QString::number(i);
+                    indicei->setText(s);
+                    QFont font = indicei->font();
+                    font.setPointSize(sizeCase/5);
+                    indicei->setFont(font);
+                    boardGUI_->addWidget(indicei,i,j);
+
+
+
+//                    font.setPointSize(72);
+//                    font.setBold(true);
+//                    label1->setFont(font);
+
+                }
         }
     }
     /*---------Disposition des pièces------------------*/
@@ -331,8 +358,10 @@ void gameWindow::update(const Subject *subject){
         end = new QLabel();
         end->setText("fin");
         end->setAlignment(Qt::AlignCenter);
-        end->setMaximumHeight(200);
+        end->setMaximumSize(100, 50);
+
  //       end->setFont(QFont::Weight::Bold);
+        end->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         end->show();
         this->close();
     }
