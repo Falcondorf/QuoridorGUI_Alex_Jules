@@ -1,9 +1,9 @@
 INPUT(
 ./debug\mainView.o
-./debug\board.o
+./debug\Board.o
 ./debug\Frame.o
-./debug\game.o
-./debug\player.o
+./debug\Game.o
+./debug\Player.o
 ./debug\Side.o
 ./debug\subject.o
 ./debug\test.o

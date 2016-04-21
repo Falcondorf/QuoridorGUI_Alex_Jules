@@ -114,6 +114,7 @@ public:
      * \param vertical la verticalité du mur (vrai vertical , faux horizontal)
      */
     void place(unsigned row, unsigned column, bool vertical);
+    bool wallIsPlacable(unsigned row, unsigned column, bool vertical);
     /*!
      * \brief Place un pion aux coordonnées données
      * \param row la ligne

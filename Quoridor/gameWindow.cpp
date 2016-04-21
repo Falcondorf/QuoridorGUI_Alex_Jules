@@ -275,9 +275,9 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     listInfo_ = new QVBoxLayout;
     gblistInfo_ = new QGroupBox;
     sbRow = new QSpinBox;
-    lRow = new QLabel("Row");
+    //lRow = new QLabel("Row");
     sbCol = new QSpinBox;
-    lCol = new QLabel("Column");
+    //lCol = new QLabel("Column");
     cbVertical = new QCheckBox("Vertical ?");
     pbPlace = new QPushButton("Place the wall");
     wallPannel = new QGridLayout;
@@ -317,8 +317,8 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     sbCol->setSingleStep(2);
     sbCol->setPrefix("Column: ");
 
-    wallPannel->addWidget(lRow, 0, 0);
-    wallPannel->addWidget(lCol, 0, 1);
+    //wallPannel->addWidget(lRow, 0, 0);
+    //wallPannel->addWidget(lCol, 0, 1);
     wallPannel->addWidget(sbRow, 1, 0);
     wallPannel->addWidget(sbCol, 1, 1);
     wallPannel->addWidget(cbVertical,2,0);
@@ -348,9 +348,9 @@ gameWindow::gameWindow(Game *myGame, QWidget *parent) :QWidget(parent),gameGUI_(
     gameGUI_->registerObserver(this);
 
 }
-gameWindow::~gameWindow(){
-    gameGUI_->unregisterObserver(this);
-}
+//gameWindow::~gameWindow(){
+//    gameGUI_->unregisterObserver(this);
+//}
 
 void gameWindow::update(const Subject *subject){
     end = new QLabel();
@@ -380,7 +380,7 @@ void gameWindow::update(const Subject *subject){
     displaceLabel();
     displayInfos();
     displayMoves();
-    if(isDisplayed){
+    if(wallPlaceble){
         if (cbVertical->isChecked() ){
                 declareWall();
                 boardGUI_->addWidget(label4,sbRow->value()-1, sbCol->value());
@@ -395,7 +395,6 @@ void gameWindow::update(const Subject *subject){
                 boardGUI_->addWidget(label3,sbRow->value(), sbCol->value()-1);
         }
     }
-    isDisplayed=false;
 }
 
 
@@ -476,9 +475,11 @@ void gameWindow::movementSW(){
 }
 void gameWindow::placeWall(){
     try{
-        isDisplayed=true;
 
+
+        wallPlaceble = gameGUI_->wallPlacable(sbRow->value(), sbCol->value(), cbVertical->isChecked());
         gameGUI_->playWall(sbRow->value(), sbCol->value(), cbVertical->isChecked());
+
 
     }catch(std::exception & e){
         std::cout << e.what() << std::endl;

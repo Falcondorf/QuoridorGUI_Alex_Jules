@@ -16,10 +16,10 @@ TEMPLATE = app
 
 SOURCES +=\
     mainView.cpp \
-    board.cpp \
+    Board.cpp \
     Frame.cpp \
-    game.cpp \
-    player.cpp \
+    Game.cpp \
+    Player.cpp \
     Side.cpp \
     subject.cpp \
     test.cpp \
@@ -28,12 +28,12 @@ SOURCES +=\
     formulaireWindow.cpp
 
 HEADERS  += \
-    board.h \
+    Board.h \
     Frame.h \
-    game.h \
+    Game.h \
     keyboard.hpp \
     observer.h \
-    player.h \
+    Player.h \
     QuoridorConsole.h \
     Side.h \
     stringConvert.hpp \

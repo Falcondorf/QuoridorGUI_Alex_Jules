@@ -297,6 +297,18 @@ bool Game::playWall(unsigned row, unsigned column, bool vertical){
     notifyObservers();
     return true;
 }
+
+bool Game::wallPlacable(unsigned row, unsigned column, bool vertical){
+   // board_.place(row,column,vertical);
+    for(unsigned i=1;i<=getNbP();i++){
+        if(!board_.findPath(make_pair(getPlayer(i).getPos().first,getPlayer(i).getPos().second),getPlayer(i).getObjective())){
+
+            return false;
+            cout<< "7" <<endl;
+        }
+    }
+    return board_.wallIsPlacable(row,column,vertical);
+}
 std::set<Side> Game::possiblePositions(){
     return possiblePositions(getPlayer(currentPlayer_));
 }

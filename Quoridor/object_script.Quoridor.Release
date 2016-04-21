@@ -1,9 +1,9 @@
 INPUT(
 ./release\mainView.o
-./release\board.o
+./release\Board.o
 ./release\Frame.o
-./release\game.o
-./release\player.o
+./release\Game.o
+./release\Player.o
 ./release\Side.o
 ./release\subject.o
 ./release\test.o

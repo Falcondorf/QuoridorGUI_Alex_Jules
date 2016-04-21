@@ -127,6 +127,7 @@ public:
      * \param nb le numéro du joueur.
      * \return Retourne le joueur numéro nb.
      */
+    bool wallPlacable(unsigned row, unsigned column, bool vertical);
     inline Player &getPlayer(unsigned nb);
     /*!
      * \brief Accesseur du nombre de joueur dans la partie.
@@ -188,8 +189,22 @@ public:
      * \return Retourne le plateau sous forme d'une chaîne.
      */
     inline std::string stringBoard();
+    /*!
+     * \brief filledPos Vérifie qu'une position du tableau est rempli joueur ou mur.
+     * \param row la ligne
+     * \param col la colonne
+     * \return retourne vrai si la case est remplie.
+     */
     inline bool filledPos(unsigned row, unsigned col);
+    /*!
+     * \brief getSizeGame recupère la taille du plateau.
+     */
     inline unsigned getSizeGame();
+    /*!
+     * \brief getNum Donne le numéro du joueur à la position spécifiée.
+     * \param row la ligne
+     * \param col la colonne
+     */
     unsigned getNum(unsigned row, unsigned col);
 };
 

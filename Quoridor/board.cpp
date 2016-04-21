@@ -109,6 +109,31 @@ void Board::place(unsigned row, unsigned column, bool vertical){
       }
 }
 
+bool Board::wallIsPlacable(unsigned row, unsigned column, bool vertical){
+     unsigned hidden_len=len_*2-1;  //rendre ca GLOBAL
+     if (row%2!=0 &&column%2!=0 && column>=1 && column < hidden_len-1 && !vertical){
+         if(plateau_[row][column]->isFree()&&plateau_[row][column-1]->isFree()&& plateau_[row][column+1]->isFree()){
+             cout<< "2" <<endl;
+            return true;
+         }else{
+             cout<< "3" <<endl;
+             return false;
+         }
+
+     }else if(column%2!=0 && row%2!=0 && row>=1 && row< hidden_len-1 && vertical ){
+         if(plateau_[row][column]->isFree()&& plateau_[row+1][column]->isFree()&& plateau_[row-1][column]->isFree()){
+             cout<< "4" <<endl;
+             return true;
+         }else{
+             cout<< "5" <<endl;
+             return false;
+         }
+      }else{
+         cout<< "6" <<endl;
+          return false;
+      }
+}
+
 void Board::empty(unsigned row, unsigned column, bool vertical){
     unsigned hidden_len=len_*2-1;  //rendre ca GLOBAL
     if (row%2!=0 &&column%2!=0 && column>=1 && column < hidden_len-1 && !vertical){
