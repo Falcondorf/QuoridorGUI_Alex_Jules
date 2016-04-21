@@ -81,10 +81,7 @@ private:
      * \brief Label affiché lorsue le jeu est terminé
      */
     QLabel *end;
-    /*!
-     * \brief Permet de déterminer si le mur doit ou non être affiché
-     */
-    bool isDisplayed =false;
+
     /*!
      * \brief Le moteur de jeu
      */
@@ -134,7 +131,7 @@ private:
     QGridLayout *wallPannel;
     QPushButton *pbPlace;
     QGroupBox *wallOpt;
-    bool simplebool;
+    bool wallPlaceble;
     QPushButton *btN;
     QPushButton *btS;
     QPushButton *btW;
