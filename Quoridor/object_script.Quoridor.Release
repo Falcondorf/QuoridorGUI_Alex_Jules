@@ -1,5 +1,4 @@
 INPUT(
-./release\mainwindow.o
 ./release\mainView.o
 ./release\board.o
 ./release\Frame.o
@@ -11,7 +10,6 @@ INPUT(
 ./release\titleWindow.o
 ./release\gameWindow.o
 ./release\formulaireWindow.o
-./release\moc_mainwindow.o
 ./release\moc_titleWindow.o
 ./release\moc_gameWindow.o
 ./release\moc_formulaireWindow.o

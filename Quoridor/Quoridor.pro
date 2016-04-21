@@ -15,7 +15,6 @@ TEMPLATE = app
 
 
 SOURCES +=\
-        mainwindow.cpp \
     mainView.cpp \
     board.cpp \
     Frame.cpp \
@@ -28,7 +27,7 @@ SOURCES +=\
     gameWindow.cpp \
     formulaireWindow.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     board.h \
     Frame.h \
     game.h \

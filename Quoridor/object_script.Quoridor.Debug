@@ -1,5 +1,4 @@
 INPUT(
-./debug\mainwindow.o
 ./debug\mainView.o
 ./debug\board.o
 ./debug\Frame.o
@@ -11,7 +10,6 @@ INPUT(
 ./debug\titleWindow.o
 ./debug\gameWindow.o
 ./debug\formulaireWindow.o
-./debug\moc_mainwindow.o
 ./debug\moc_titleWindow.o
 ./debug\moc_gameWindow.o
 ./debug\moc_formulaireWindow.o

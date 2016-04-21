@@ -353,16 +353,28 @@ gameWindow::~gameWindow(){
 }
 
 void gameWindow::update(const Subject *subject){
+    end = new QLabel();
     if (subject!=gameGUI_) return;
-    if (gameGUI_->isOver()){
-        end = new QLabel();
-        end->setText("fin");
+    if (gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getWallstock()==0
+            && gameGUI_->possiblePositions().empty()){
+        end->setText("Match Nul !");
         end->setAlignment(Qt::AlignCenter);
         end->setMaximumSize(100, 50);
-
- //       end->setFont(QFont::Weight::Bold);
         end->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         end->show();
+
+        this->close();
+    }
+    else if (gameGUI_->isOver()){
+        QString str= QString::fromUtf8(gameGUI_->getPlayer(gameGUI_->getCurrentPlayer()).getName().c_str());
+        end->setText(str+" a gagné !");
+        end->setAlignment(Qt::AlignCenter);
+        end->resize(250, 70);
+        end->setMinimumSize(250, 70);
+        end->setMaximumSize(500, 250);
+        end->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        end->show();
+
         this->close();
     }
     displaceLabel();
